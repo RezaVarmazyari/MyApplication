@@ -1,8 +1,0 @@
-@using  System.Globalization
-@{
-    PersianCalendar calender=new PersianCalendar();
-    string persiandate=calender.GetYear(DateTime.Now)+"/"+
-    calender.GetMonth(DateTime.Now).ToString("00")+"/"+
-    calender.GetDayOfMonth(DateTime.Now).ToString("00");
-}
-<h2 style="border: 1px solid red;padding;30px;">@persiandate</h2>
