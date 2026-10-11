@@ -22,5 +22,11 @@ namespace MyApplication.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        [Route("Test")]
+        public IActionResult Test()
+        {
+            ViewBag.Name = "rezavarmaz";
+            return View();
+        }
     }
 }
