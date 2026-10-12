@@ -31,12 +31,12 @@ namespace MyApplication.Data
                 Name = "لباس تابستان",
                 Description = "لباس تابستان"
             },
-             new Category()
-             {
-                 Id = 3,
-                 Name = "لباس بهاره",
-                 Description = "لباس بهاره"
-             }
+            new Category()
+            {
+                Id = 2,
+                Name = "لباس بهاره",
+                Description = "لباس بهاره"
+            }
             );
             #endregion
             base.OnModelCreating(modelBuilder);
