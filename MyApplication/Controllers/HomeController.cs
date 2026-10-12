@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using MyApplication.Models;
+
 
 namespace MyApplication.Controllers
 {
@@ -9,7 +11,10 @@ namespace MyApplication.Controllers
         {
             return View();
         }
-
+        public IActionResult ContactUs()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();

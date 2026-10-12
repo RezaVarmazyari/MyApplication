@@ -1,9 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using MyApplication.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -18,8 +23,13 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapStaticAssets();
+#region Db Context
+builder.Services.AddDbContext<MyApplicationContext>(Options =>
+{ Options.UseSqlServer(builder.Configuration.GetConnectionString("Data Source =.;Initial Catalog=MyApplication_DB;Integrated Security=true"));});
 
+#endregion
+app.MapStaticAssets();
+app.UseStaticFiles();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}")
