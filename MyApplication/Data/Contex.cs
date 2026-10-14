@@ -33,7 +33,7 @@ namespace MyApplication.Data
             },
             new Category()
             {
-                Id = 2,
+                Id = 3,
                 Name = "لباس بهاره",
                 Description = "لباس بهاره"
             }
