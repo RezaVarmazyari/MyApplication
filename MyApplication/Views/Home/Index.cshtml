@@ -1,11 +1,15 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model IEnumerable<Product>
 
+@{
+    ViewData["Title"] = "فروشگاه من";
+}
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+
+    <h1 class="display-4">به فروشگاه من خوش آمدید.</h1>
        
 
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-
-
+    @foreach (var item in Model)
+    {
+        <h1>@Html.Name("name")</h1>
+    }
+</div>

@@ -15,8 +15,37 @@ namespace MyApplication.Data
         }
 
         public DbSet<Category> Categories { get; set; }
+        public DbSet<CategoryToProduct> CategoryToProducts { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Item> Items { get; set; }
+
+
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<CategoryToProduct>()
+            .HasKey(t => new { t.ProductId, t.CategoryId });
+
+            //for floent relationship
+            // modelBuilder.Entity<Product>(
+            //     p =>
+            //     {
+            //         p.HasKey(w => w.Id);
+            //         p.OwnsOne<Item>(w => w.Item);
+            //         p.HasOne<Item>(w => w.Item).WithOne(w => w.Product)
+            //          .HasForeignKey<Item>(w => w.Id);
+            //     }
+            // );
+
+            modelBuilder.Entity<Item>(
+                i =>
+                {
+                    i.Property(w => w.Price).HasColumnType("Money");
+                    i.HasKey(w => w.Id);
+                }
+            );
+
             #region Seed Data Category
             modelBuilder.Entity<Category>().HasData(
             new Category()
@@ -38,8 +67,69 @@ namespace MyApplication.Data
                 Description = "لباس بهاره"
             }
             );
+
+            modelBuilder.Entity<Item>().HasData(
+                new Item()
+                {
+                    Id = 1,
+                    Price = 85000,
+                    QuantityInStock = 5
+                },
+                 new Item()
+                 {
+                     Id = 1,
+                     Price = 1000000,
+                     QuantityInStock = 7
+                 },
+                new Item()
+                {
+                    Id = 1,
+                    Price = 250000,
+                    QuantityInStock = 5
+                }
+            );
+            modelBuilder.Entity<Product>().HasData(
+                new Product()
+                {
+                    Id = 1,
+                    Name = "دوره  اول ",
+                    Description = "دوره جامع اول"
+                },
+                 new Product()
+                 {
+                     Id = 2,
+                     Name = "دوره دوم ",
+                     Description = "دوره جامع دوم "
+                 },
+                 new Product()
+                 {
+                     Id = 3,
+                     Name = "دوره سوم",
+                     Description = "دوره جامع سوم"
+                 }
+            );
+            modelBuilder.Entity<CategoryToProduct>().HasData(
+                new CategoryToProduct() { CategoryId = 1, ProductId = 1 },
+                new CategoryToProduct() { CategoryId = 2, ProductId = 1 },
+                new CategoryToProduct() { CategoryId = 3, ProductId = 1 },
+                new CategoryToProduct() { CategoryId = 4, ProductId = 1 },
+                  new CategoryToProduct() { CategoryId = 1, ProductId = 2},
+                new CategoryToProduct() { CategoryId = 2, ProductId = 2 },
+                new CategoryToProduct() { CategoryId = 3, ProductId = 2 },
+                new CategoryToProduct() { CategoryId = 4, ProductId = 2 },
+                  new CategoryToProduct() { CategoryId = 1, ProductId =3 },
+                new CategoryToProduct() { CategoryId = 2, ProductId = 3 },
+                new CategoryToProduct() { CategoryId = 3, ProductId = 3},
+                new CategoryToProduct() { CategoryId = 4, ProductId = 3 },
+                  new CategoryToProduct() { CategoryId = 1, ProductId = 4 },
+                new CategoryToProduct() { CategoryId = 2, ProductId = 4 },
+                new CategoryToProduct() { CategoryId = 3, ProductId = 4 },
+                new CategoryToProduct() { CategoryId = 4, ProductId = 4 }
+                );
             #endregion
             base.OnModelCreating(modelBuilder);
         }
+
     }
+
 }
