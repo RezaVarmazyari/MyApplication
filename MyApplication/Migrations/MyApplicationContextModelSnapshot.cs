@@ -61,6 +61,238 @@ namespace MyApplication.Migrations
                             Name = "لباس بهاره"
                         });
                 });
+
+            modelBuilder.Entity("MyApplication.Models.CategoryToProduct", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductId", "CategoryId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("CategoryToProducts");
+
+                    b.HasData(
+                        new
+                        {
+                            ProductId = 1,
+                            CategoryId = 1
+                        },
+                        new
+                        {
+                            ProductId = 1,
+                            CategoryId = 2
+                        },
+                        new
+                        {
+                            ProductId = 1,
+                            CategoryId = 3
+                        },
+                        new
+                        {
+                            ProductId = 1,
+                            CategoryId = 4
+                        },
+                        new
+                        {
+                            ProductId = 2,
+                            CategoryId = 1
+                        },
+                        new
+                        {
+                            ProductId = 2,
+                            CategoryId = 2
+                        },
+                        new
+                        {
+                            ProductId = 2,
+                            CategoryId = 3
+                        },
+                        new
+                        {
+                            ProductId = 2,
+                            CategoryId = 4
+                        },
+                        new
+                        {
+                            ProductId = 3,
+                            CategoryId = 1
+                        },
+                        new
+                        {
+                            ProductId = 3,
+                            CategoryId = 2
+                        },
+                        new
+                        {
+                            ProductId = 3,
+                            CategoryId = 3
+                        },
+                        new
+                        {
+                            ProductId = 3,
+                            CategoryId = 4
+                        },
+                        new
+                        {
+                            ProductId = 4,
+                            CategoryId = 1
+                        },
+                        new
+                        {
+                            ProductId = 4,
+                            CategoryId = 2
+                        },
+                        new
+                        {
+                            ProductId = 4,
+                            CategoryId = 3
+                        },
+                        new
+                        {
+                            ProductId = 4,
+                            CategoryId = 4
+                        });
+                });
+
+            modelBuilder.Entity("MyApplication.Models.Item", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("Money");
+
+                    b.Property<int>("QuantityInStock")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Items");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Price = 85000m,
+                            QuantityInStock = 5
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Price = 1000000m,
+                            QuantityInStock = 7
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Price = 250000m,
+                            QuantityInStock = 5
+                        });
+                });
+
+            modelBuilder.Entity("MyApplication.Models.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemId")
+                        .IsUnique();
+
+                    b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "دوره جامع اول",
+                            ItemId = 0,
+                            Name = "دوره  اول "
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "دوره جامع دوم ",
+                            ItemId = 0,
+                            Name = "دوره دوم "
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "دوره جامع سوم",
+                            ItemId = 0,
+                            Name = "دوره سوم"
+                        });
+                });
+
+            modelBuilder.Entity("MyApplication.Models.CategoryToProduct", b =>
+                {
+                    b.HasOne("MyApplication.Models.Category", "Category")
+                        .WithMany("CategoryToProducts")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MyApplication.Models.Product", "Product")
+                        .WithMany("CategoryToProducts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("MyApplication.Models.Product", b =>
+                {
+                    b.HasOne("MyApplication.Models.Item", "Item")
+                        .WithOne("Product")
+                        .HasForeignKey("MyApplication.Models.Product", "ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Item");
+                });
+
+            modelBuilder.Entity("MyApplication.Models.Category", b =>
+                {
+                    b.Navigation("CategoryToProducts");
+                });
+
+            modelBuilder.Entity("MyApplication.Models.Item", b =>
+                {
+                    b.Navigation("Product")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MyApplication.Models.Product", b =>
+                {
+                    b.Navigation("CategoryToProducts");
+                });
 #pragma warning restore 612, 618
         }
     }

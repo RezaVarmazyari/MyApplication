@@ -17,7 +17,8 @@ namespace MyApplication.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var Product = _context.Products.ToList();
+            return View(Product);
         }
         public IActionResult ContactUs()
         {

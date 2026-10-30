@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MyApplication.Models;
+using MyApplication.Data;
 
 namespace MyApplication.Data
 {
@@ -77,13 +78,13 @@ namespace MyApplication.Data
                 },
                  new Item()
                  {
-                     Id = 1,
+                     Id = 2,
                      Price = 1000000,
                      QuantityInStock = 7
                  },
                 new Item()
                 {
-                    Id = 1,
+                    Id = 3,
                     Price = 250000,
                     QuantityInStock = 5
                 }
